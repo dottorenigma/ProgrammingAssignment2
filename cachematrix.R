@@ -3,6 +3,9 @@
 ## makeCacheMatrix() and cacheSolve() implemented here allow for caching the inverse of a matrix. 
 ## They are a direct application of the pattern shown by the vectorMean
 ## example to the matrix inverse case 
+## if a is an invetible matrix and ca <- makeCacheMatrix(a) then 
+## all(round(cacheSolve(ca) %*% ca$get()) == diag(rep(1,nrow(ca$get()))))
+## holds TRUE
 
 ## makeCacheMatrix() creates an object that can cache a matrix and its inverse. 
 ## It returns a list of 4 functions: 
@@ -19,7 +22,7 @@ makeCacheMatrix <- function(x = matrix()) {
     inv <<- NULL
   }
   get <- function() x
-  setInverse <- function(inverse) inv <<- inverse 
+  setInv <- function(inverse) inv <<- inverse 
   getInv <- function() inv 
   list(set = set, get = get, setInv = setInv, getInv = getInv) 
 }
@@ -54,7 +57,7 @@ cacheSolve <- function(x, ...) {
 ## getInv() gets the value of the inverse matrix
 ##
 ## if a is invertible matrix and ca <- makeCacheMatrix2(a) the following 
-## invariant holds true
+## invariant holds TRUE
 ## all(round(ca$getInv() %*% ca$get()) == diag(rep(1,nrow(ca$get()))))  
 
 makeCacheMatrix2 <- function(x = matrix()) {
